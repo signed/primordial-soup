@@ -1,0 +1,27 @@
+{
+  "name": "esm-ts-library",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "packageManager": "pnpm@7.2.1",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs.js"
+  },
+  "scripts": {
+    "vitest": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@signed/prettier-config": "0.1.0",
+    "@types/chai": "4.3.1",
+    "chai": "4.3.6",
+    "prettier": "2.7.1",
+    "ts-node": "10.8.1",
+    "typescript": "4.7.4",
+    "vitest": "0.16.0"
+  },
+  "sideEffects": false,
+  "prettier": "@signed/prettier-config"
+}
