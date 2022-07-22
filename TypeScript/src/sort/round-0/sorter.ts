@@ -38,7 +38,7 @@ export class Sorter {
   private quicksort(input: number[], left: number, right: number): number[] {
     let i = left,
       j = right
-    const pivot = input[(left + right) / 2]
+    const pivot = input[Math.floor((left + right) / 2)]
     let k = i
     while (k <= j) {
       while (input[k] < pivot) k++
