@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { expect, test } from 'vitest'
 
 type Movie = 'Wall·E' | 'Terminator' | 'Fight Club' | 'Sonic the Hedgehog' | 'Sonic the Hedgehog 2'
 
@@ -20,7 +20,6 @@ const allowedToSee = (age: number, movie: Movie) => {
   }
   return 'denied'
 }
-
 
 test('everybody can see wall e', () => {
   expect(allowedToSee(0, 'Wall·E')).toBe('allowed')

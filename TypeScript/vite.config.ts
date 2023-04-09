@@ -3,6 +3,6 @@ import { defineConfig } from 'vitest/config'
 // https://vitest.dev/config/
 export default defineConfig({
   test: {
-    include: ['**/*.vitest.ts']
+    include: ['**/*.vitest.ts'],
   },
 })
