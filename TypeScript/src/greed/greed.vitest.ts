@@ -2,7 +2,7 @@ import { expect, test } from 'vitest'
 import { score } from './greed.js'
 
 test('score of an empty list is zero', () => {
-  expect(score([0])).toBe(0)
+  expect(score([])).toBe(0)
 })
 
 test('score of a single roll of 5 is 50', () => {
