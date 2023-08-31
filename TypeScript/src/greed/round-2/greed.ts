@@ -34,7 +34,7 @@ export const score = (dice: number[]) =>
     return total + scoreForAllTriples + scoreForAllSingles
   }, 0)
 
-const unique = (items: int[]) => [...new Set(items)]
+const unique = (items: number[]) => [...new Set(items)]
 
 const scoreForSingle = orElse(
   {

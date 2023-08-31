@@ -10,7 +10,7 @@
     "require": "./index.cjs.js"
   },
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --run",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
