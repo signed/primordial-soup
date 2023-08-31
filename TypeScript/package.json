@@ -10,18 +10,18 @@
     "require": "./index.cjs.js"
   },
   "scripts": {
-    "vitest": "vitest",
+    "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@signed/prettier-config": "0.1.0",
     "@types/chai": "4.3.5",
-    "chai": "4.3.7",
-    "prettier": "2.8.8",
+    "chai": "4.3.8",
+    "prettier": "3.0.3",
     "ts-node": "10.9.1",
-    "typescript": "5.0.4",
-    "vite": "4.3.5",
-    "vitest": "0.31.0"
+    "typescript": "5.2.2",
+    "vite": "4.4.9",
+    "vitest": "0.34.3"
   },
   "sideEffects": false,
   "prettier": "@signed/prettier-config"
