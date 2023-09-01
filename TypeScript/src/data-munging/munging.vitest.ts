@@ -1,8 +1,9 @@
-import { expect, test } from 'vitest'
+import { expect, test, describe } from 'vitest'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const pathToData = path.resolve('./src/data-munging/weather.dat')
+const pathToFootballData = path.resolve('./src/data-munging/football.dat')
 
 const readMeasurementsIn = (fileContent: string) =>
   fileContent
@@ -62,4 +63,74 @@ test('day with smallest temperature spread', () => {
 
   expect(result.day).toEqual('14')
   expect(result.spread).toEqual(2)
+})
+
+function parseFootballTableLine(s: string) {
+  const columns = s.trim().replace('-', '').split(/\s+/)
+  const team = columns[1]
+  const scoredFor = Number.parseInt(columns[6])
+  const scoredAgainst = Number.parseInt(columns[7])
+  return { team, scoredFor, scoredAgainst }
+}
+
+const footballLineFilter = (line: string, index: number) => {
+  if (index === 0) {
+    return false
+  }
+  if (line.startsWith('   ---')) {
+    return false
+  }
+  return true
+}
+
+const readGoalDifferenceIn = (fileContent: string) => fileContent.split('\n').filter(footballLineFilter)
+
+function teamWithSmallestDifference() {
+  const fileContent = readFileSync(pathToFootballData).toString()
+  const dataLines = readGoalDifferenceIn(fileContent)
+  const dayWithMinSpread = dataLines
+    .map((line) => parseFootballTableLine(line))
+    .map((measurement) => {
+      const difference = Math.abs(measurement.scoredAgainst - measurement.scoredFor)
+      return { team: measurement.team, difference: difference }
+    })
+    .reduce(
+      (acc, cur) => {
+        if (acc === undefined) {
+          return cur
+        }
+
+        return cur.difference < acc?.difference ? cur : acc
+      },
+      { team: 'nope', difference: Number.MAX_VALUE },
+    )
+  return dayWithMinSpread
+}
+
+describe('Part Two: Soccer League Table', () => {
+  describe('ignore the header line', () => {
+    test('football line filter', () => {
+      expect(footballLineFilter('not important', 0)).toBe(false)
+    })
+    test('ignore separator line', () => {
+      expect(footballLineFilter('   -------------------------------------------------------', -1)).toBe(false)
+    })
+    test('keep all other lines', () => {
+      expect(footballLineFilter('   16. Bolton          38     9  13  16    44  -  62    40', 17)).toBe(true)
+    })
+  })
+
+  test('parse soccer table line', () => {
+    expect(parseFootballTableLine('    1. Arsenal         38    26   9   3    79  -  36    87')).toEqual({
+      team: 'Arsenal',
+      scoredFor: 79,
+      scoredAgainst: 36,
+    })
+  })
+
+  test('team with smallest difference', () => {
+    const result = teamWithSmallestDifference()
+    expect(result.team).toEqual('Aston_Villa')
+    expect(result.difference).toEqual(1)
+  })
 })
