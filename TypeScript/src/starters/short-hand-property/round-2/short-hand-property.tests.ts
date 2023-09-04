@@ -14,12 +14,7 @@ test('override latitude', () => {
 })
 
 test('override longitude', () => {
-  const { coordinates } = anyLocation(
-    anyCoordinates({
-      latitude: undefined,
-      longitude: 103.866989,
-    }),
-  )
+  const { coordinates } = anyLocation(anyCoordinates({ latitude: undefined, longitude: 103.866989 }))
   expect(coordinates.latitude).toEqual(48.858372)
   expect(coordinates.longitude).toEqual(103.866989)
 })
