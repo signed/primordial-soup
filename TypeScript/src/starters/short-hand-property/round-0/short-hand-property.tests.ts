@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { anyLocation } from './00-short-hand-property.js'
+import { anyLocation } from './short-hand-property.js'
 
 test('default to the eifel tower', () => {
   const { coordinates } = anyLocation()
