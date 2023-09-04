@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest'
+import { expect, test } from 'vitest'
 import { bubbleSort } from './bubble-sort.js'
 import { insertionSort } from './insertion-sort.js'
 import { quickSort } from './quick-sort.js'

@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest'
+import { expect, test } from 'vitest'
 import { Sorter } from './sorter.js'
 
 test('bubblesort puts array in ascending order', () => {

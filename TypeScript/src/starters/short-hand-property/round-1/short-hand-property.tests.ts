@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest'
+import { expect, test } from 'vitest'
 import { anyLocation } from './short-hand-property.js'
 
 test('default to the eifel tower', () => {
