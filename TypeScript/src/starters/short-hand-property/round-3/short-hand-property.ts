@@ -9,7 +9,7 @@ export const anyCoordinates = (overrides: Partial<Coordinates> = {}) => {
   }
 }
 
-export const anyLocation = (coordinates: Coordinates = anyCoordinates()) => {
+export const anyLocation = (coordinates: Coordinates) => {
   return {
     coordinates,
   }
