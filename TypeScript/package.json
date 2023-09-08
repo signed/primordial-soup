@@ -12,17 +12,18 @@
   "scripts": {
     "test": "vitest --run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "nit-pick": "pnpm typecheck && pnpm test"
   },
   "devDependencies": {
     "@signed/prettier-config": "0.1.0",
-    "@types/chai": "4.3.5",
+    "@types/chai": "4.3.6",
     "chai": "4.3.8",
     "prettier": "3.0.3",
     "ts-node": "10.9.1",
     "typescript": "5.2.2",
     "vite": "4.4.9",
-    "vitest": "0.34.3"
+    "vitest": "0.34.4"
   },
   "sideEffects": false,
   "prettier": "@signed/prettier-config"
