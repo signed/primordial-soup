@@ -16,7 +16,10 @@ type Multiplication = {
 
 type ArithmeticOperation = Addition | Multiplication
 
-const trim = (line: string) => line.trim().replace(/\s/g, '')
+const trim = (line: string) => {
+  const trimmed = line.trim()
+  return trimmed.replace(/\s/g, '')
+}
 const split = (line: string) => line.split('')
 const transform = (parts: string[]): ArithmeticOperation => {
   if (parts[1] === '*') {
