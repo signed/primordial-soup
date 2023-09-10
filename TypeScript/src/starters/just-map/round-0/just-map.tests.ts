@@ -21,6 +21,7 @@ const trim = (line: string) => {
   return trimmed.replace(/\s/g, '')
 }
 const split = (line: string) => line.split('')
+
 const transform = (parts: string[]): ArithmeticOperation => {
   if (parts[1] === '*') {
     return {
@@ -35,6 +36,7 @@ const transform = (parts: string[]): ArithmeticOperation => {
     addend: Number.parseInt(parts[2], 10),
   }
 }
+
 const solve = (operation: ArithmeticOperation) => {
   switch (operation.type) {
     case 'addition':
