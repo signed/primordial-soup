@@ -1,12 +1,9 @@
 import { expect, test } from 'vitest'
 
 const evaluate = (operations: string[]) =>
-  operations
-    .map(trim)
-    .map(split)
-    .map((parts: string[]) => {
-      return solve(transform(parts))
-    })
+  operations.map(prepare).map((parts: string[]) => {
+    return solve(transform(parts))
+  })
 
 type Addition = {
   type: 'addition'
@@ -21,6 +18,10 @@ type Multiplication = {
 }
 
 type ArithmeticOperation = Addition | Multiplication
+
+const prepare = (rawLine: string) => {
+  return split(trim(rawLine))
+}
 
 const trim = (line: string) => {
   const trimmed = line.trim()
