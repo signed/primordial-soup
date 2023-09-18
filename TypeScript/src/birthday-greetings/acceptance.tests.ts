@@ -1,12 +1,11 @@
-import { readFileSync } from 'node:fs'
 import { expect, test } from 'vitest'
 import format from 'date-fns/format'
 import subYears from 'date-fns/subYears'
 import subDays from 'date-fns/subDays'
 import { BirthdayService } from './birthday-service.js'
 import { XDate } from './date.js'
-import { setupSmtpServer } from './smtp-server.js'
-import { setupTemporaryFolder } from './temporary-folder.js'
+import { setupSmtpServer } from './fakes/smtp-server.js'
+import { setupTemporaryFolder } from './fakes/temporary-folder.js'
 
 const folder = setupTemporaryFolder()
 const smtpServer = setupSmtpServer()
@@ -33,11 +32,6 @@ Doe, John, ${birthDayYesterdayAsCsvString()}, john.doe@example.org`
 
   await new BirthdayService().sendGreetings(csvFile, XDate.today(), 'localhost', port)
   expect(inbox.emails).to.be.empty
-})
-
-test('temporary file', () => {
-  const path = folder.writeFileWith('the content')
-  expect(readFileSync(path).toString()).toEqual('the content')
 })
 
 function birthDayTodayAsCsvString() {
