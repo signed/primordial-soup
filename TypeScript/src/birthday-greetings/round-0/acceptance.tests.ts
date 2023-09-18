@@ -4,8 +4,8 @@ import subYears from 'date-fns/subYears'
 import subDays from 'date-fns/subDays'
 import { BirthdayService } from './birthday-service.js'
 import { XDate } from './date.js'
-import { setupSmtpServer } from './fakes/smtp-server.js'
-import { setupTemporaryFolder } from './fakes/temporary-folder.js'
+import { setupSmtpServer } from '../fakes/smtp-server.js'
+import { setupTemporaryFolder } from '../fakes/temporary-folder.js'
 
 const folder = setupTemporaryFolder()
 const smtpServer = setupSmtpServer()
