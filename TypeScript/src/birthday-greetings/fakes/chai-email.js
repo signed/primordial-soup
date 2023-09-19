@@ -1,43 +1,5 @@
 import { Assertion } from 'chai'
-
-// https://github.com/vitest-dev/vitest/blob/main/packages/expect/src/jest-extend.ts
-
-/**
- * # Model
- *
- * A constructor for a simple data model
- * object. Has a `type` and contains arbitrary
- * attributes.
- *
- * @param {String} type
- */
-export function Model(type) {
-  this._type = type
-  this._attrs = {}
-}
-
-/**
- * .set (key, value)
- *
- * Set an attribute to be stored in this model.
- *
- * @param {String} key
- * @param {Mixted} value
- */
-Model.prototype.set = function (key, value) {
-  this._attrs[key] = value
-}
-
-/**
- * .get (key)
- *
- * Get an attribute that is stored in this model.
- *
- * @param {String} key
- */
-Model.prototype.get = function (key) {
-  return this._attrs[key]
-}
+import { Model } from './chai-email-converted'
 
 export const ChaiPlugin = function (chai, utils) {
   const Assertion = chai.Assertion

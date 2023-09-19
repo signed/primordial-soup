@@ -1,7 +1,8 @@
 import * as chai from 'chai'
 import { test, expect } from 'vitest'
 // @ts-ignore
-import { Model, ChaiPlugin } from './chai-email.js'
+import { ChaiPlugin } from './chai-email.js'
+import { Model } from './chai-email-converted.js'
 
 chai.use(ChaiPlugin)
 
