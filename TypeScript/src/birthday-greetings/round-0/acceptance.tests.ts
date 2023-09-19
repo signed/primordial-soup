@@ -6,6 +6,9 @@ import { BirthdayService } from './birthday-service.js'
 import { XDate } from './date.js'
 import { setupSmtpServer } from '../fakes/smtp-server.js'
 import { setupTemporaryFolder } from '../fakes/temporary-folder.js'
+import Chai from 'chai'
+import { ChaiEmail } from '../fakes/chai-email.js'
+Chai.use(ChaiEmail)
 
 const folder = setupTemporaryFolder()
 const smtpServer = setupSmtpServer()
@@ -21,7 +24,7 @@ Doe, John, ${birthDayTodayAsCsvString()}, john.doe@example.org`
   const email = inbox.singleEmail()
   expect(email.subject).toEqual('Happy Birthday!')
   expect(email.text).toEqual('Happy Birthday, dear John\n')
-  //expect(received).email.to('john.doe@foobar.com')
+  expect(email).to('john.doe@example.org')
 })
 
 test('do no send email when nobodys birthday', async () => {

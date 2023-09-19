@@ -37,11 +37,15 @@ export class Model {
   }
 }
 
-// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/66747
 declare global {
   namespace Chai {
-    export interface AssertionStatic extends AssertionPrototype {
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/66747
+    interface AssertionStatic extends AssertionPrototype {
       overwriteProperty(name: string, getter: (this: AssertionStatic, _super: any) => any): void
+    }
+
+    interface ChaiUtils {
+      transferFlags(assertion: AssertionStatic, obj: object, includeAll?: boolean): void
     }
   }
 }
