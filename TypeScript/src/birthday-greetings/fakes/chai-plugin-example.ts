@@ -1,9 +1,3 @@
-import { use as chaiUse } from 'chai'
-
-// https://github.com/vitest-dev/vitest/blob/main/packages/expect/src/jest-extend.ts
-export type FirstFunctionArgument<T> = T extends (arg: infer A) => unknown ? A : never
-export type ChaiPlugin = FirstFunctionArgument<typeof chaiUse>
-
 /**
  * # Model
  *
@@ -52,6 +46,7 @@ declare global {
   }
 }
 
+// https://github.com/vitest-dev/vitest/blob/main/packages/expect/src/jest-extend.ts
 declare global {
   namespace Chai {
     interface Model {
@@ -69,7 +64,7 @@ declare global {
   }
 }
 
-export const ChaiPluginExample: ChaiPlugin = function (chai, utils) {
+export const ChaiPluginExample: Chai.ChaiPlugin = function (chai, utils) {
   const Assertion = chai.Assertion
 
   function chainModelAge() {
