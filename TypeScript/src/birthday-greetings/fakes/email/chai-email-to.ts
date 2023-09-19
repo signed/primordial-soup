@@ -1,6 +1,6 @@
-import { isEmail } from './smtp-server.js'
 import { AssertionError } from 'chai'
 import { ChaiPlugin } from './chai-email.js'
+import { ensureEmail } from './shared.js'
 
 declare global {
   namespace Chai {
@@ -19,18 +19,9 @@ export const ChaiEmailTo: ChaiPlugin = function (chai, utils) {
 
   function assertTo(this: Chai.AssertionStatic, expectedTo: string, message?: string) {
     const actual = this._obj
+    ensureEmail(this, utils, actual)
+
     const ssfi = utils.flag(this, 'ssfi')
-
-    if (!isEmail(actual)) {
-      this.assert(
-        false,
-        'expected #{this} to be an Email but got #{act}',
-        'expected #{this} to be an Email but got #{act}',
-        true,
-      )
-      return
-    }
-
     const to = actual.to
     if (to === undefined) {
       throw new AssertionError('not implemented, to undefined')

@@ -1,5 +1,5 @@
-import { isEmail } from './smtp-server.js'
 import { ChaiPlugin } from './chai-email.js'
+import { ensureEmail } from './shared.js'
 
 declare global {
   namespace Chai {
@@ -18,18 +18,9 @@ export const ChaiEmailText: ChaiPlugin = function (chai, utils) {
 
   function assertTo(this: Chai.AssertionStatic, expectedTo: string, message?: string) {
     const actual = this._obj
+    ensureEmail(this, utils, actual)
+
     const ssfi = utils.flag(this, 'ssfi')
-
-    if (!isEmail(actual)) {
-      this.assert(
-        false,
-        'expected #{this} to be an Email but got #{act}',
-        'expected #{this} to be an Email but got #{act}',
-        true,
-      )
-      return
-    }
-
     const text = actual.text
     const assertTo = new Assertion(text, message, ssfi, true)
     utils.transferFlags(this, assertTo, false)
