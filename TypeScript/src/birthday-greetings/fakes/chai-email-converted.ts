@@ -43,6 +43,14 @@ export class Model {
   }
 }
 
+declare global {
+  namespace Chai {
+    export interface AssertionStatic extends AssertionPrototype {
+      overwriteProperty(name: string, getter: (this: AssertionStatic, _super: any) => any): void
+    }
+  }
+}
+
 export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
   const Assertion = chai.Assertion
 
@@ -51,29 +59,29 @@ export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
     utils.flag(this, 'model.age', true)
   }
 
-  function assertModelAge(this: Chai.AssertionStatic, n: number, message?: string) {
+  function assertModelAge(this: Chai.AssertionStatic, expectedAge: number, message?: string) {
     const ssfi = utils.flag(this, 'ssfi')
     // make sure we are working with a model
     new Assertion(this._obj, message, ssfi, true).to.be.instanceof(Model)
 
     // make sure we have an age and its a number
-    const age = this._obj.get('age')
-    new Assertion(age, message, ssfi, true).to.be.a('number')
+    const actualAge = this._obj.get('age')
+    new Assertion(actualAge, message, ssfi, true).to.be.a('number')
 
     // do our comparison
     this.assert(
-      age === n,
+      actualAge === expectedAge,
       'expected #{this} to have age #{exp} but got #{act}',
       'expected #{this} to not have age #{act}',
-      n,
-      age,
+      expectedAge,
+      actualAge,
     )
   }
 
   Assertion.addChainableMethod('age', assertModelAge, chainModelAge)
 
-  Assertion.overwriteMethod('above', function (_super: any) {
-    return function assertAge(this: Chai.Assertion & Chai.AssertionStatic, n: number) {
+  Assertion.overwriteMethod('above', function (this: Chai.AssertionStatic, _super: any) {
+    return function assertAge(this: Chai.Assertion & Chai.AssertionStatic, expectedAge: number) {
       if (utils.flag(this, 'model.age')) {
         const obj = this._obj
 
@@ -84,12 +92,36 @@ export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
         new Assertion(obj).to.have.deep.nested.property('_attrs.age').a('number')
 
         // now we compare
-        const age = obj.get('age')
+        const actualAge = obj.get('age')
         this.assert(
-          age > n,
+          actualAge > expectedAge,
           'expected #{this} to have an age above #{exp} but got #{act}',
           'expected #{this} to not have an age above #{exp} but got #{act}',
-          n,
+          expectedAge,
+          actualAge,
+        )
+      } else {
+        _super.apply(this, arguments)
+      }
+    }
+  })
+
+  Assertion.overwriteMethod('below', function (this: Chai.AssertionStatic, _super: any) {
+    return function assertAge(this: Chai.Assertion & Chai.AssertionStatic, expectedAge: number) {
+      if (utils.flag(this, 'model.age')) {
+        const obj = this._obj
+        // first we assert we are actually working with a model
+        new Assertion(obj).instanceof(Model)
+        // next, make sure we have an age
+        new Assertion(obj).to.have.deep.nested.property('_attrs.age').a('number')
+
+        // now we compare
+        const age = obj.get('age')
+        this.assert(
+          age < expectedAge,
+          'expected #{this} to have an age above #{exp} but got #{act}',
+          'expected #{this} to not have an age above #{exp} but got #{act}',
+          expectedAge,
           age,
         )
       } else {
@@ -98,28 +130,21 @@ export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
     }
   })
 
-  Assertion.overwriteMethod('below', function (_super: any) {
-    return function assertAge(this: Chai.Assertion & Chai.AssertionStatic, n: number) {
-      if (utils.flag(this, 'model.age')) {
-        const obj = this._obj
+  Assertion.overwriteProperty('ok', function (this: Chai.AssertionStatic, _super: any) {
+    return function checkModel(this: Chai.Assertion & Chai.AssertionStatic) {
+      const obj = this._obj
+      if (obj && obj instanceof Model) {
+        const negate = utils.flag(this, 'negate')
+        if (negate && !Object.hasOwn(obj._attrs, 'id')) {
+          return
+        }
+        new Assertion(obj).to.have.nested.property('_attrs.id')
 
-        // first we assert we are actually working with a model
-        new Assertion(obj).instanceof(Model)
-
-        // next, make sure we have an age
-        new Assertion(obj).to.have.deep.nested.property('_attrs.age').a('number')
-
-        // now we compare
-        const age = obj.get('age')
-        this.assert(
-          age < n,
-          'expected #{this} to have an age above #{exp} but got #{act}',
-          'expected #{this} to not have an age above #{exp} but got #{act}',
-          n,
-          age,
-        )
+        const assertIdType = new Assertion(obj.get('id'), 'model assert ok id type')
+        utils.transferFlags(this, assertIdType, false) // false means don't transfer `object` flag
+        assertIdType.is.a('number')
       } else {
-        _super.apply(this, arguments)
+        _super.call(this)
       }
     }
   })
