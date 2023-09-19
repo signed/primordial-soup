@@ -43,10 +43,28 @@ export class Model {
   }
 }
 
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/66747
 declare global {
   namespace Chai {
     export interface AssertionStatic extends AssertionPrototype {
       overwriteProperty(name: string, getter: (this: AssertionStatic, _super: any) => any): void
+    }
+  }
+}
+
+declare global {
+  namespace Chai {
+    interface Model {
+      (type: string, message?: string): Assertion
+    }
+
+    interface Age extends LanguageChains, NumericComparison {
+      (age: number, message?: string): Assertion
+    }
+
+    interface Assertion {
+      model: Model
+      age: Age
     }
   }
 }

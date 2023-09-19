@@ -4,23 +4,6 @@ import { Model, ChaiPluginExample } from './chai-plugin-example.js'
 
 chai.use(ChaiPluginExample)
 
-declare global {
-  namespace Chai {
-    interface Model {
-      (type: string, message?: string): Assertion
-    }
-
-    interface Age extends LanguageChains, NumericComparison {
-      (age: number, message?: string): Assertion
-    }
-
-    interface Assertion {
-      model: Model
-      age: Age
-    }
-  }
-}
-
 test('general model', () => {
   const arthur = new Model('person')
   arthur.set('name', 'Arthur Dent')
