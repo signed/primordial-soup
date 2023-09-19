@@ -5,6 +5,35 @@ import { Model, ChaiPlugin } from './chai-email.js'
 
 chai.use(ChaiPlugin)
 
+declare global {
+  export namespace Chai {
+    interface Assertion {
+      responseText(expectedText: string): Promise<void>
+    }
+  }
+}
+
+declare global {
+  namespace Chai {
+    // interface LanguageChains {
+    //   model: Assertion
+    // }
+
+    interface Model {
+      (type: string, message?: string): Assertion
+    }
+
+    interface Age extends LanguageChains, NumericComparison {
+      (age: number, message?: string): Assertion
+    }
+
+    interface Assertion {
+      model: Model
+      age: Age
+    }
+  }
+}
+
 test('general model', () => {
   const arthur = new Model('person')
   arthur.set('name', 'Arthur Dent')
