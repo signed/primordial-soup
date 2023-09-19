@@ -35,6 +35,11 @@ describe('basic mail', () => {
     expect(email).with.subject('Hello World!')
     expect(email).not.with.subject('Bogus Subject')
   })
+
+  test('text', () => {
+    expect(email).with.text('How are you doing\n')
+    expect(email).not.with.text('Bogus Text')
+  })
 })
 
 const sendMessage = async (options: SendMailOptions) => {
