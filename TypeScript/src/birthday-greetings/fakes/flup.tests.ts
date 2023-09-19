@@ -1,11 +1,8 @@
 import * as chai from 'chai'
 import { test, expect } from 'vitest'
-// @ts-ignore
-import { ChaiPlugin } from './chai-email.js'
-import { Model, ChaiPluginAge } from './chai-email-converted.js'
+import { Model, ChaiPluginExample } from './chai-plugin-example.js'
 
-chai.use(ChaiPlugin)
-chai.use(ChaiPluginAge)
+chai.use(ChaiPluginExample)
 
 declare global {
   namespace Chai {

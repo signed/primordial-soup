@@ -51,7 +51,7 @@ declare global {
   }
 }
 
-export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
+export const ChaiPluginExample: ChaiPlugin = function (chai, utils) {
   const Assertion = chai.Assertion
 
   function chainModelAge() {
@@ -147,5 +147,21 @@ export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
         _super.call(this)
       }
     }
+  })
+
+  Assertion.addMethod('model', function (expectedType) {
+    const actualType = this._obj
+
+    // first, our instanceof check, shortcut
+    new Assertion(this._obj).to.be.instanceof(Model)
+
+    // second, our type check
+    this.assert(
+      actualType._type === expectedType,
+      'expected #{this} to be of type #{exp} but got #{act}',
+      'expected #{this} to not be of type #{act}',
+      expectedType,
+      actualType._type,
+    )
   })
 }
