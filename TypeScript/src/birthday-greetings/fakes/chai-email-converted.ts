@@ -1,4 +1,8 @@
+import { use as chaiUse } from 'chai'
+
 // https://github.com/vitest-dev/vitest/blob/main/packages/expect/src/jest-extend.ts
+export type FirstFunctionArgument<T> = T extends (arg: infer A) => unknown ? A : never
+export type ChaiPlugin = FirstFunctionArgument<typeof chaiUse>
 
 /**
  * # Model
@@ -37,4 +41,34 @@ export class Model {
   get(key: string) {
     return this._attrs[key]
   }
+}
+
+export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
+  const Assertion = chai.Assertion
+
+  function chainModelAge() {
+    // @ts-ignore
+    utils.flag(this, 'model.age', true)
+  }
+
+  function assertModelAge(this: Chai.AssertionStatic, n: number, message?: string) {
+    const ssfi = utils.flag(this, 'ssfi')
+    // make sure we are working with a model
+    new Assertion(this._obj, message, ssfi, true).to.be.instanceof(Model)
+
+    // make sure we have an age and its a number
+    const age = this._obj.get('age')
+    new Assertion(age, message, ssfi, true).to.be.a('number')
+
+    // do our comparison
+    this.assert(
+      age === n,
+      'expected #{this} to have age #{exp} but got #{act}',
+      'expected #{this} to not have age #{act}',
+      n,
+      age,
+    )
+  }
+
+  Assertion.addChainableMethod('age', assertModelAge, chainModelAge)
 }

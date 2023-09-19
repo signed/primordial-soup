@@ -4,31 +4,6 @@ import { Model } from './chai-email-converted'
 export const ChaiPlugin = function (chai, utils) {
   const Assertion = chai.Assertion
 
-  function chainModelAge() {
-    utils.flag(this, 'model.age', true)
-  }
-
-  function assertModelAge(n, message) {
-    const ssfi = utils.flag(this, 'ssfi')
-    // make sure we are working with a model
-    new Assertion(this._obj, message, ssfi, true).to.be.instanceof(Model)
-
-    // make sure we have an age and its a number
-    const age = this._obj.get('age')
-    new Assertion(age, message, ssfi, true).to.be.a('number')
-
-    // do our comparison
-    this.assert(
-      age === n,
-      'expected #{this} to have age #{exp} but got #{act}',
-      'expected #{this} to not have age #{act}',
-      n,
-      age,
-    )
-  }
-
-  Assertion.addChainableMethod('age', assertModelAge, chainModelAge)
-
   Assertion.overwriteMethod('above', function (_super) {
     return function assertAge(n) {
       if (utils.flag(this, 'model.age')) {
