@@ -1,4 +1,3 @@
-import { ChaiEmailTo } from './chai-email-to.js'
 import { isEmail } from './smtp-server.js'
 import { AssertionError } from 'chai'
 import { ChaiPlugin } from './chai-email.js'
@@ -8,6 +7,7 @@ declare global {
     interface EmailFrom {
       (address: string, message?: string): Assertion
     }
+
     interface Assertion {
       from: EmailFrom
     }
@@ -16,19 +16,19 @@ declare global {
 
 export const ChaiEmailFrom: ChaiPlugin = function (chai, utils) {
   const Assertion = chai.Assertion
-
-  chai.use(ChaiEmailTo)
-
   Assertion.addMethod('from', function (expectedFrom: string, message?: string) {
     const actual = this._obj
     const ssfi = utils.flag(this, 'ssfi')
+    const negated = utils.flag(this, 'negate') as boolean
 
     if (!isEmail(actual)) {
       this.assert(
+        negated,
+        'expected an Email but got #{act}',
+        'expected an Email but got #{act}',
+        'Email',
+        actual,
         false,
-        'expected #{this} to be an Email but got #{act}',
-        'expected #{this} to be an Email but got #{act}',
-        true,
       )
       return
     }

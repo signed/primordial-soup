@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach } from 'vitest'
-import Chai from 'chai'
+import Chai, { AssertionError } from 'chai'
 import { ChaiEmail } from './chai-email.js'
 import { Email, setupSmtpServer } from './smtp-server.js'
 import * as nodemailer from 'nodemailer'
@@ -24,6 +24,9 @@ describe('basic mail', () => {
   test('from', () => {
     expect(email).from('sender@example.org')
     expect(email).not.from('bogus@example.org')
+
+    expect(() => expect({}).from('stand in')).throw(AssertionError)
+    expect(() => expect({}).not.from('stand in')).throw(AssertionError)
   })
 
   test('to', () => {
