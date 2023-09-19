@@ -1,5 +1,5 @@
-import { ChaiPlugin } from './chai-email.js'
 import { ensureEmail } from './shared.js'
+import { ChaiPlugin } from './types.js'
 
 declare global {
   namespace Chai {
