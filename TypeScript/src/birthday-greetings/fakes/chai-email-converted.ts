@@ -71,4 +71,56 @@ export const ChaiPluginAge: ChaiPlugin = function (chai, utils) {
   }
 
   Assertion.addChainableMethod('age', assertModelAge, chainModelAge)
+
+  Assertion.overwriteMethod('above', function (_super: any) {
+    return function assertAge(this: Chai.Assertion & Chai.AssertionStatic, n: number) {
+      if (utils.flag(this, 'model.age')) {
+        const obj = this._obj
+
+        // first we assert we are actually working with a model
+        new Assertion(obj).instanceof(Model)
+
+        // next, make sure we have an age
+        new Assertion(obj).to.have.deep.nested.property('_attrs.age').a('number')
+
+        // now we compare
+        const age = obj.get('age')
+        this.assert(
+          age > n,
+          'expected #{this} to have an age above #{exp} but got #{act}',
+          'expected #{this} to not have an age above #{exp} but got #{act}',
+          n,
+          age,
+        )
+      } else {
+        _super.apply(this, arguments)
+      }
+    }
+  })
+
+  Assertion.overwriteMethod('below', function (_super: any) {
+    return function assertAge(this: Chai.Assertion & Chai.AssertionStatic, n: number) {
+      if (utils.flag(this, 'model.age')) {
+        const obj = this._obj
+
+        // first we assert we are actually working with a model
+        new Assertion(obj).instanceof(Model)
+
+        // next, make sure we have an age
+        new Assertion(obj).to.have.deep.nested.property('_attrs.age').a('number')
+
+        // now we compare
+        const age = obj.get('age')
+        this.assert(
+          age < n,
+          'expected #{this} to have an age above #{exp} but got #{act}',
+          'expected #{this} to not have an age above #{exp} but got #{act}',
+          n,
+          age,
+        )
+      } else {
+        _super.apply(this, arguments)
+      }
+    }
+  })
 }

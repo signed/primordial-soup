@@ -8,19 +8,7 @@ chai.use(ChaiPlugin)
 chai.use(ChaiPluginAge)
 
 declare global {
-  export namespace Chai {
-    interface Assertion {
-      responseText(expectedText: string): Promise<void>
-    }
-  }
-}
-
-declare global {
   namespace Chai {
-    // interface LanguageChains {
-    //   model: Assertion
-    // }
-
     interface Model {
       (type: string, message?: string): Assertion
     }
