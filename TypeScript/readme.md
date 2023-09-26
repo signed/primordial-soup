@@ -1,40 +1,17 @@
-https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/
-https://yonatankra.com/how-to-use-the-new-ecmascript-module-in-typescript/
+Refactoring Golf
+================
 
-https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+Refactoring Golf is a game designed to stretch your refactoring muscles and get you to explore your IDE to see what’s really possible using shortcuts and automation.
 
-# Modules
+This repo contains multiple courses with a varying number of 'rounds', each equivalent to a 'hole' of a golf game.
+Your goal is to (as safely and efficiently as possible) refactor the `round-n` code to look like the `round-n+1` code.
+You must aim to do it in as few “strokes” as possible.
+A stroke is essentially a change made to the code, and every stroke costs you points.
 
-https://exploringjs.com/es6/ch_modules.html
+You should count your score as follows:
 
-# Testing
-
-https://stackoverflow.com/questions/59584492/do-any-javascript-test-frameworks-support-es-modules
-https://github.com/avajs/ava/blob/main/docs/recipes/typescript.md#for-packages-with-type-module
-
-# Examples
-
-https://github.com/sindresorhus/ky targeting deno
-
-# docs
-
-https://nodejs.org/api/esm.html
-https://github.com/TypeStrong/ts-node#options
-https://github.com/TypeStrong/ts-node#transpileonly
-
-# mocha
-
-- https://stackoverflow.com/questions/40635956/overriding-tsconfig-json-for-ts-node-in-mocha
-- https://github.com/mochajs/mocha-examples/issues/47
-- https://mochajs.org/#configuring-mocha-nodejs
-- https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
-- https://gist.github.com/jordansexton/2a0c3c360aa700cc9528e89620e82c3d
-
-"test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/\*_/_.ts'"
-
-# ava
-
-- https://github.com/avajs/ava/blob/main/docs/recipes/typescript.md
-- https://github.com/avajs/ava/issues/2593
-
-https://github.com/TypeStrong/ts-node#recipes
+- 1 point for every change made to the code using a shortcut or automated IDE feature (e.g., automated refactoring, code template, or Find/Replace).
+- 2 points for every manual edit. Note that a single “edit” could cover multiple lines of code, but will be in one file.
+- Double points for every change made while the code is failing the tests from the previous change.
+- Zero points for code formatting (e.g., deleting whitespace or optimizing imports).
+- Allow yourselves two attempts at each round to determine your best score.
