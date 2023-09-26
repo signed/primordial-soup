@@ -13,6 +13,12 @@ dependencies:
     version: 6.9.5
 
 devDependencies:
+  '@fakes/email-chai':
+    specifier: 0.1.0-first-a3ceb13-20230926205536
+    version: 0.1.0-first-a3ceb13-20230926205536
+  '@fakes/email-vitest':
+    specifier: 0.1.0-first-a3ceb13-20230926205536
+    version: 0.1.0-first-a3ceb13-20230926205536(vitest@0.34.3)
   '@signed/prettier-config':
     specifier: 0.1.0
     version: 0.1.0
@@ -290,6 +296,30 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@fakes/email-chai@0.1.0-first-a3ceb13-20230926205536:
+    resolution: {integrity: sha512-rKEaELA6CcNptwQZyrav9Vjs0ATxMWfcvBClcYilo9YbidtgdfpGXtDzQKLW4heHiEijrQpqPsQjm40ZErDZxg==}
+    dependencies:
+      '@fakes/email': 0.1.0-first-a3ceb13-20230926205536
+      chai: 4.3.8
+      mailparser: 3.6.5
+    dev: true
+
+  /@fakes/email-vitest@0.1.0-first-a3ceb13-20230926205536(vitest@0.34.3):
+    resolution: {integrity: sha512-gI/OO94zRTdkcGD83w+ErF69mL+j2DvGfyuWQ2cRnluqqB7+b8u3SSACKGYxT+eqpuvqfP/a+qabcaypxcgz/A==}
+    peerDependencies:
+      vitest: '>=0.30.0'
+    dependencies:
+      '@fakes/email': 0.1.0-first-a3ceb13-20230926205536
+      vitest: 0.34.3
+    dev: true
+
+  /@fakes/email@0.1.0-first-a3ceb13-20230926205536:
+    resolution: {integrity: sha512-KPfImE0jjXfhOqq9SXzFyYkcy2Zo4kOU3XPhjcBBHU7KSLDc5517WNxVuHkw0qT17nWTH8jvMlZIQJa7I2B4iA==}
+    dependencies:
+      mailparser: 3.6.5
+      smtp-server: 3.13.0
+    dev: true
 
   /@jest/schemas@29.6.3:
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}

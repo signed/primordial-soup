@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "main": "index.js",
-  "packageManager": "pnpm@8.7.6",
+  "packageManager": "pnpm@8.8.0",
   "exports": {
     "import": "./index.js",
     "require": "./index.cjs.js"
@@ -16,6 +16,8 @@
     "nit-pick": "pnpm typecheck && pnpm test"
   },
   "devDependencies": {
+    "@fakes/email-chai": "0.1.0-first-a3ceb13-20230926205536",
+    "@fakes/email-vitest": "0.1.0-first-a3ceb13-20230926205536",
     "@signed/prettier-config": "0.1.0",
     "@types/chai": "4.3.6",
     "@types/mailparser": "3.4.0",

@@ -4,10 +4,10 @@ import subYears from 'date-fns/subYears'
 import subDays from 'date-fns/subDays'
 import { BirthdayService } from './birthday-service.js'
 import { XDate } from './date.js'
-import { setupSmtpServer } from '../fakes/email/smtp-server.js'
+import { setupSmtpServer } from '@fakes/email-vitest'
 import { setupTemporaryFolder } from '../fakes/temporary-folder/temporary-folder.js'
 import Chai from 'chai'
-import { ChaiEmail } from '../fakes/email/chai-email.js'
+import { ChaiEmail } from '@fakes/email-chai'
 Chai.use(ChaiEmail)
 
 const folder = setupTemporaryFolder()
